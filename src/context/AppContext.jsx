@@ -1,6 +1,5 @@
 import { createContext, useState } from "react";
 import { baseUrl } from "../../baseUrl";
-import { data } from "autoprefixer";
 
 export const AppContext = createContext();
 
@@ -10,9 +9,15 @@ export default function AppContextprovider ({children}) {
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(null);
 
-    async function fetchBlogPost(page = 1) {
+    async function fetchBlogPost(page = 1, tag=null, category) {
         setLoading(true);
         const url = `${baseUrl}?page=${page}`;
+        if(tag) {
+            url += `&tag=${tag}`;
+        }
+        if(category) {
+            url += `&category=${category}`;
+        }
         try{
             const result = await fetch(url);
             const data = await result.json();
