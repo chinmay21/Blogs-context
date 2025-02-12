@@ -1,5 +1,6 @@
 import React, { useState, useLocation, useNavigation, useContext } from 'react'
 import { AppContext } from '../context/AppContext';
+import {Spinner} from '../components/Spinner';
 
 const BlogPage = () => {
   const [blog, setBlog] = useState(null);
@@ -25,9 +26,20 @@ const BlogPage = () => {
     }
     setLoading(false);
   } 
+
+  useEffect(() => {
+    if(blogId) {
+      fetchRelatedBlogs();
+    }
+  }, [location.pathname])
   return (
     <div>
-
+      <Headers/>
+      <div>
+        <button onClick={() => navigation(-1)}>
+          Back
+        </button>
+      </div>
     </div>
   )
 }
