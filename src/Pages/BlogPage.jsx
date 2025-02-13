@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { AppContext } from '../context/AppContext';
 import Spinner from '../components/Spinner';
 import BlogDetails from '../components/BlogDetails';
+import Header from '../components/Header';
 
 const BlogPage = () => {
   const [blog, setBlog] = useState(null);
@@ -35,8 +36,8 @@ const BlogPage = () => {
     }
   }, [location.pathname])
   return (
-    <div>
-      <Headers/>
+    <div className='w-full h-full flex flex-col gap-y-1 justify-center items-center'>
+      <Header/>
       <div>
         <button onClick={() => navigation(-1)}>
           Back
