@@ -1,12 +1,14 @@
-import React, { useState, useLocation, useNavigation, useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom';
 import { AppContext } from '../context/AppContext';
-import {Spinner} from '../components/Spinner';
+import Spinner from '../components/Spinner';
+import BlogDetails from '../components/BlogDetails';
 
 const BlogPage = () => {
   const [blog, setBlog] = useState(null);
   const [relatedBlogs, setRelatedBlogs] = useState([]);
   const location = useLocation();
-  const navigation = useNavigation();
+  const navigation = useNavigate();
   const {setLoading, loading, baseUrl} = useContext(AppContext);
   const blogId = location.pathname.split("/").at(-1);
 
@@ -40,6 +42,25 @@ const BlogPage = () => {
           Back
         </button>
       </div>
+      {
+        loading ? (<div><Spinner/></div>) : blog ? 
+        (<div>
+          <BlogDetails post={blog}/>
+          <h2>Related Blogs</h2>
+          {
+            relatedBlogs.map((post) => (
+              <div key={post.id}>
+                <BlogDetails post={post}/>
+              </div>
+            ))
+          }
+        </div>) : 
+        (
+          <div>
+            <p>No Blog Found</p>
+          </div>
+        )
+      }
     </div>
   )
 }

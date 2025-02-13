@@ -1,15 +1,16 @@
 import React, { useContext } from 'react'
 import Header from '../components/Header'
-import { useLocation, useNavigation } from 'react-router-dom'
+import Blogs from '../components/Blogs';
+import { useLocation, useNavigate, } from 'react-router-dom'
 import Pagination from '../components/Pagination';
 
 
 const TagPage = () => {
-    const navigation = useNavigation();
+    const navigation = useNavigate();
     const location = useLocation();
     const tag = location.pathname.split("/").at(-1);
   return (
-    <div>
+    <div className='w-full h-full flex flex-col gap-y-1 justify-center items-center'>
         <Header/>
         <div>
             <button onClick={() => navigation(-1)}>
