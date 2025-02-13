@@ -12,10 +12,11 @@ const BlogPage = () => {
   const navigation = useNavigate();
   const {setLoading, loading, baseUrl} = useContext(AppContext);
   const blogId = location.pathname.split("/").at(-1);
+  const newBaseUrl = "https://codehelp-apis.vercel.app/api/";
 
   async function fetchRelatedBlogs() {
     setLoading(true);
-    let url = `${baseUrl}?blogId=${blogId}`;
+    let url = `${newBaseUrl}get-blog?blogId=${blogId}`;
     try {
       const result = await fetch(url);
       const data = await result.json(); 
@@ -36,7 +37,7 @@ const BlogPage = () => {
     }
   }, [location.pathname])
   return (
-    <div className='w-full h-full flex flex-col gap-y-1 justify-center items-center'>
+    <div className='w-11/12 max-w-[670px] py-8 flex justify-center items-center flex-col gap-y-7 mt-[66px] mb-[70px]'>
       <Header/>
       <div>
         <button onClick={() => navigation(-1)}>
@@ -50,7 +51,7 @@ const BlogPage = () => {
           <h2>Related Blogs</h2>
           {
             relatedBlogs.map((post) => (
-              <div key={post.id}>
+              <div className='py-[20px]' key={post.id}>
                 <BlogDetails post={post}/>
               </div>
             ))
